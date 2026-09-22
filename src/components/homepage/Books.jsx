@@ -3,11 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 
 const getBooks = async () => {
+  try{
   const response = await fetch(
-    "http://localhost:3000/booksData.json"
+      `{process.env.NEXT_PUBLIC_SERVER_BASE_URL}/booksData.json`,
   );
-
   return response.json();
+}catch(error){
+  console.error("Error fetching books data:",error);
+  return[];
+}
 };
 
 const BookCard = ({ book }) => {
